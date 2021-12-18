@@ -10,7 +10,7 @@ class Errors:
         res = self.db.insert(data, self.collection_name)
         return res
 
-    def findAll(self, data, sort=None):
+    def find(self, data, sort=None):
         return self.db.find(data, self.collection_name, None, sort)
 
     def find_by_id(self, _id):

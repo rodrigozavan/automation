@@ -48,30 +48,30 @@ class Wait:
         except:
             return False
 
-    def wait_by_presence(self, driver, element, time):
+    def wait_by_presence(self, driver, name_element, time):
         try:
-            element = WebDriverWait(driver, time).until(ec.presence_of_element_located(element))
+            element = WebDriverWait(driver, time).until(ec.presence_of_element_located(name_element))
             return element
         except:
             return False
 
-    def wait_by_visibility_of(self, driver, element, time):
+    def wait_by_visibility_of(self, driver, name_element, time):
         try:
-            element = WebDriverWait(driver, time).until(ec.visibility_of(element))
+            element = WebDriverWait(driver, time).until(ec.visibility_of(name_element))
             return element
         except:
             return False
 
-    def wait_by_visibility_any(self, driver, element, time):
+    def wait_by_visibility_any(self, driver, name_element, time):
         try:
-            element = WebDriverWait(driver, time).until(ec.visibility_of_any_elements_located(element))
+            element = WebDriverWait(driver, time).until(ec.visibility_of_any_elements_located(name_element))
             return element
         except:
             return False
 
-    def wait_by_invisibility_of_element(self, driver, element, time):
+    def wait_by_invisibility_of_element(self, driver, name_element, time):
         try:
-            element = WebDriverWait(driver, time).until(ec.invisibility_of_element(element))
+            element = WebDriverWait(driver, time).until(ec.invisibility_of_element(name_element))
             return element
         except:
             return False

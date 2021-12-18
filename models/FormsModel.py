@@ -1,10 +1,10 @@
 from config.database import Database
 
 
-class SwagBot:
+class FormsData:
     def __init__(self):
         self.db = Database()
-        self.collection_name = 'swag_bot'
+        self.collection_name = 'forms_data'
 
     def create(self, data):
         res = self.db.insert(data, self.collection_name)

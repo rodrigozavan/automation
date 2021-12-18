@@ -13,7 +13,7 @@ if sys.platform == "linux" or sys.platform == "linux2":
     Firefox = str(Path(__file__).parent.parent) + os.sep + 'webdriver' + os.sep + 'geckodriver'
     env = 'dev'
 else:
-    debug = False
+    debug = True
     Chrome = str(Path(__file__).parent.parent) + os.sep + 'webdriver' + os.sep + 'chromedriver.exe'
     Firefox = str(Path(__file__).parent.parent) + os.sep + 'webdriver' + os.sep + 'geckodriver'
     env = 'dev'

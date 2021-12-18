@@ -2,13 +2,13 @@ from automation.SwagLabs.ExtractData import ExtractData
 from automation.SwagLabs import Login
 from models import SwagBotModel, ErrorsSwag
 from utils.Driver.ConfigDriver import ConfigDriver
+from utils.Proppertys import Proppertys
 
 
-class Start:
-    def __init__(self, user, password):
+class Start(Proppertys.Proppertys):
+    def __init__(self):
+        super().__init__()
         self._driver = None
-        self._user = user
-        self._password = password
         self._login = Login.Login
         self._extract_data = ExtractData()
         self._db_model = SwagBotModel.SwagBot()
@@ -21,7 +21,7 @@ class Start:
         if isinstance(self._driver, dict):
             raise ConnectionError('Erro ao iniciar navegador.')
 
-        self._driver.get('https://www.saucedemo.com/')
+        self._driver.get(self.url)
         self._driver.maximize_window()
         login_obj = self._login(driver=self._driver)
 
@@ -57,5 +57,8 @@ class Start:
 
 
 if __name__ == '__main__':
-    bot = Start('standard_user', 'secret_sauce')
+    bot = Start()
+    bot.url = 'https://www.saucedemo.com/'
+    bot.user = 'standard_user'
+    bot.password = 'secret_sauce'
     bot.start()
