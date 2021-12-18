@@ -1,20 +1,26 @@
 from bs4 import BeautifulSoup
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+from utils.Waits import Waits
+
 
 class ExtractData:
     def __init__(self):
-        pass
+        self._waits = Waits.Wait()
 
     def get_html(self, driver):
         try:
-            html = WebDriverWait(driver, 10).until(ec.presence_of_element_located((By.CLASS_NAME, 'inventory_list')))
+
+            html = self._waits.wait_by_presence(driver=driver, time=10, element=('class name', 'inventory_list'))
             html = str(html.get_attribute('innerHTML'))
             parser = BeautifulSoup(html, 'html.parser')
-            return parser
-        except:
-            return {'error': True, 'data': 'Erro ao extrair html'}
+
+            if not html or not parser:
+                return {'error': True, 'data': 'Erro ao extrair dados do html.', 'type': f'Elemento não encontrado',
+                        'method': 'get_html'}
+            else:
+                return parser
+
+        except Exception as e:
+            return {'error': True, 'data': 'Erro ao extrair dados do html.', 'type': f'{e}', 'method': 'get_html'}
 
     def filter_html(self, parser):
         try:
@@ -29,5 +35,5 @@ class ExtractData:
                 data = {'name': name, 'description': desc, 'price': price, 'link_img': link_img}
                 dicts.append(data)
             return dicts
-        except:
-            return {'error': True, 'data': 'Erro ao extrair dados do html.'}
+        except Exception as e:
+            return {'error': True, 'data': 'Erro ao extrair dados do html.', 'type': f'{e}', 'method': 'filter_html'}

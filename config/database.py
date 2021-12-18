@@ -6,17 +6,17 @@ from config import config
 
 class Database:
     def __init__(self):
-        self.client = MongoClient(config.var_env['db_mongo'][config.env]['url'])  # configure db url
+        self.client = MongoClient(config.var_env['db_mongo'][config.env]['url'])
         self.db = self.client[config.var_env['db_mongo'][config.env]['database']]
 
     def insert(self, element, collection_name):
         element["created_at"] = datetime.now()
         element["updated_at"] = datetime.now()
 
-        inserted = self.db[collection_name].insert_one(element)  # insert data to db
+        inserted = self.db[collection_name].insert_one(element)
         return str(inserted.inserted_id)
 
-    def find(self, criteria, collection_name, projection=None, sort=None, limit=0, cursor=False):  # find all from db
+    def find(self, criteria, collection_name, projection=None, sort=None, limit=0, cursor=False):
 
         if "_id" in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
@@ -28,7 +28,7 @@ class Database:
 
         found = list(found)
 
-        for i in range(len(found)):  # to serialize object id need to convert string
+        for i in range(len(found)):
             if "_id" in found[i]:
                 found[i]["_id"] = str(found[i]["_id"])
 
@@ -49,7 +49,7 @@ class Database:
         if "_id" in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
         element["updated_at"] = datetime.now()
-        set_obj = {"$set": element}  # update value
+        set_obj = {"$set": element}
         updated = self.db[collection_name].update_one(criteria, set_obj)
         if updated.matched_count == 1:
             return "Record Successfully Updated"
@@ -58,7 +58,7 @@ class Database:
         if "_id" in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
         element["updated_at"] = datetime.now()
-        set_obj = {"$set": element}  # update value
+        set_obj = {"$set": element}
 
         updated = self.db[collection_name].update_one(criteria, set_obj, upsert=True)
         if updated.matched_count == 1:
@@ -67,7 +67,7 @@ class Database:
     def push(self, criteria, element, collection_name):
         if "_id" in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
-        set_obj = {"$push": element}  # update value
+        set_obj = {"$push": element}
         updated = self.db[collection_name].update_one(criteria, set_obj)
         if updated.matched_count == 1:
             return "Record Successfully Updated"
@@ -75,7 +75,7 @@ class Database:
     def pull(self, criteria, element, collection_name):
         if "_id" in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
-        set_obj = {"$pull": element}  # update value
+        set_obj = {"$pull": element}
         updated = self.db[collection_name].update_one(criteria, set_obj)
         if updated.matched_count == 1:
             return "Record Successfully Updated"
@@ -98,7 +98,7 @@ class Database:
         if "_id" in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
         element["updated_at"] = datetime.now()
-        set_obj = {"$unset": element}  # update value
+        set_obj = {"$unset": element}
         updated = self.db[collection_name].update_one(criteria, set_obj)
         if updated.matched_count == 1:
             return "Record Successfully Updated"

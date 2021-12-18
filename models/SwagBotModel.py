@@ -4,7 +4,7 @@ from config.database import Database
 class SwagBot:
     def __init__(self):
         self.db = Database()
-        self.collection_name = 'swag-bot'
+        self.collection_name = 'swag_bot'
 
     def create(self, data):
         res = self.db.insert(data, self.collection_name)
