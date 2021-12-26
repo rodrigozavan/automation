@@ -7,11 +7,10 @@ class Login:
         self._driver = driver
         self._wait = Waits.Wait()
 
-
     def send_user(self, user):
         user = str(user)
         try:
-            username = self._wait.wait_by_presence(driver=self._driver, time=10, element=('id', 'user-name'))
+            username = self._wait.wait_by_presence(driver=self._driver, time=10, name_element=('id', 'user-name'))
 
             if not username:
                 return {'error': True, 'data': 'Erro ao preencher usuário.', 'type': f'Elemento não encontrado',
@@ -23,12 +22,11 @@ class Login:
         except (NoSuchElementException, TimeoutException, ElementClickInterceptedException) as e:
             return {'error': True, 'data': 'Erro ao preencher usuário.', 'type': f'{e}', 'method': 'send_user'}
 
-
     def send_password(self, password):
         password = str(password)
         try:
 
-            pwd = self._wait.wait_by_presence(driver=self._driver, time=10, element=('id', 'password'))
+            pwd = self._wait.wait_by_presence(driver=self._driver, time=10, name_element=('id', 'password'))
 
             if not pwd:
                 return {'error': True, 'data': 'Erro ao preencher senha.', 'type': f'Elemento não encontrado',
@@ -40,11 +38,10 @@ class Login:
         except (NoSuchElementException, TimeoutException, ElementClickInterceptedException) as e:
             return {'error': True, 'data': 'Erro ao preencher senha.', 'type': f'{e}', 'method': 'send_password'}
 
-
     def send_login(self):
         try:
 
-            login_button = self._wait.wait_by_presence(driver=self._driver, time=10, element=('id', 'login-button'))
+            login_button = self._wait.wait_by_presence(driver=self._driver, time=10, name_element=('id', 'login-button'))
 
             if not login_button:
                 return {'error': True, 'data': 'Erro ao logar.', 'type': f'Erro não encontrado',
@@ -53,7 +50,7 @@ class Login:
                 login_button.click()
 
                 msg_error = self._wait.wait_by_presence(driver=self._driver, time=1,
-                                                        element=('css selector', '[data-test="error"]'))
+                                                        name_element=('css selector', '[data-test="error"]'))
 
                 if not msg_error:
                     return True

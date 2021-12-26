@@ -57,6 +57,7 @@ class Steps:
 
         try:
             for key in elements:
+                elements[key].clear()
                 elements[key].send_keys(info[key])
         except:
             return {'error': True, 'type': 'Erro ao preencher informações'}

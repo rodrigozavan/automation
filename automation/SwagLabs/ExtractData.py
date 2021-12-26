@@ -9,7 +9,7 @@ class ExtractData:
     def get_html(self, driver):
         try:
 
-            html = self._waits.wait_by_presence(driver=driver, time=10, element=('class name', 'inventory_list'))
+            html = self._waits.wait_by_presence(driver=driver, time=10, name_element=('class name', 'inventory_list'))
             html = str(html.get_attribute('innerHTML'))
             parser = BeautifulSoup(html, 'html.parser')
 
