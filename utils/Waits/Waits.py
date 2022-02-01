@@ -31,7 +31,8 @@ class Wait:
         try:
             element = WebDriverWait(driver, time).until(ec.element_to_be_clickable(element))
             return element
-        except:
+        except Exception as e:
+            print(e)
             return None
 
     def wait_by_presence_of_all(self, driver, element, time):

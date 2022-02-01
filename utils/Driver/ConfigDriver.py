@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from config import config
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 
 class ConfigDriver:
@@ -18,9 +20,9 @@ class ConfigDriver:
                 self._chrome_options.add_argument('headless')
 
             if name == 'firefox':
-                self._driver = webdriver.Firefox(executable_path=self._config.Firefox, options=self._firefox_options)
+                self._driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=self._firefox_options)
             else:
-                self._driver = webdriver.Chrome(executable_path=self._config.Chrome, options=self._chrome_options)
+                self._driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=self._chrome_options)
 
             return self._driver
         except Exception as e:

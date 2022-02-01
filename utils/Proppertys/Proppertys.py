@@ -3,6 +3,7 @@ class Proppertys:
         self._url = None
         self._user = None
         self._password = None
+        self._type_bot = None
 
     @property
     def url(self):
@@ -11,6 +12,14 @@ class Proppertys:
     @url.setter
     def url(self, new_url):
         self._url = new_url
+
+    @property
+    def type_bot(self):
+        return self._type_bot
+
+    @type_bot.setter
+    def type_bot(self, new_type_bot):
+        self._type_bot = new_type_bot
 
     @property
     def user(self):
