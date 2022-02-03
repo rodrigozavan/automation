@@ -30,11 +30,8 @@ class ScrapinUsers(Proppertys.Proppertys):
         if isinstance(num_page, dict):
             self._db_errors.create(num_page)
             raise ValueError('Erro ao coletar maxpage')
-        elif str(num_page).isnumeric():
-            max_page = int(num_page)
-        else:
-            self._db_errors.create(num_page)
-            raise ValueError('Erro ao coletar maxpage')
+
+        max_page = int(num_page)
 
         for page in range(1, max_page + 1):
             self.url = f'https://automacaocombatista.herokuapp.com/users?page={page}'
